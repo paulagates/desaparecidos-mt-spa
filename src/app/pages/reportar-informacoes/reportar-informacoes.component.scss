@@ -1,0 +1,183 @@
+.reportar-informacao {
+    padding: 1.5rem 0;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 5.25rem);
+  
+    &__container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+  
+    &__navegacao {
+      margin-bottom: 1.5rem;
+    }
+  
+    &__carregando {
+      display: flex;
+      justify-content: center;
+      padding: 3rem 0;
+    }
+  
+    &__conteudo {
+      .reportar-informacao__cabecalho {
+        margin-bottom: 1.5rem;
+        text-align: center;
+  
+        h1 {
+          margin-top: 0;
+          margin-bottom: 0.5rem;
+          color: #2c3e50;
+          font-size: 1.75rem;
+        }
+  
+        p {
+          margin: 0;
+          color: #666;
+          font-size: 1.1rem;
+        }
+      }
+  
+      .reportar-informacao__mensagem-sucesso {
+        text-align: center;
+        margin-bottom: 1.5rem;
+  
+        .reportar-informacao__icone-sucesso {
+          margin-bottom: 1rem;
+  
+          i {
+            font-size: 3rem;
+            color: #4caf50;
+          }
+        }
+  
+        h2 {
+          margin-top: 0;
+          margin-bottom: 0.5rem;
+          color: #388e3c;
+          font-size: 1.5rem;
+        }
+  
+        p {
+          margin-top: 0;
+          margin-bottom: 1.5rem;
+          color: #666;
+        }
+  
+        .reportar-informacao__acoes-sucesso {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+  
+          @media (max-width: 768px) {
+            flex-direction: column;
+          }
+        }
+      }
+  
+      .reportar-informacao__formulario-container {
+        .reportar-informacao__mensagem-informativa {
+          margin-bottom: 1.5rem;
+  
+          .reportar-informacao__conteudo-mensagem {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+  
+            i {
+              color: #1565c0;
+              font-size: 1.25rem;
+              margin-top: 0.25rem;
+            }
+  
+            p {
+              margin: 0;
+              color: #1565c0;
+            }
+          }
+        }
+  
+        .reportar-informacao__card-formulario {
+          .reportar-informacao__formulario {
+            .reportar-informacao__grupo-formulario {
+              margin-bottom: 1.5rem;
+  
+              label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+                color: #495057;
+              }
+  
+              small.p-error {
+                display: block;
+                margin-top: 0.25rem;
+              }
+  
+              ::ng-deep .p-calendar {
+                width: 100%;
+  
+                .p-inputtext {
+                  width: 100%;
+                }
+              }
+  
+              .reportar-informacao__item-arquivo {
+                display: flex;
+                align-items: center;
+                padding: 0.5rem;
+                gap: 0.5rem;
+  
+                .reportar-informacao__preview-arquivo {
+                  width: 40px;
+                  height: 40px;
+                  object-fit: cover;
+                  border-radius: 4px;
+                }
+  
+                .reportar-informacao__nome-arquivo {
+                  flex: 1;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+  
+                .reportar-informacao__tamanho-arquivo {
+                  color: #6c757d;
+                  font-size: 0.875rem;
+                }
+              }
+            }
+  
+            .reportar-informacao__acoes-formulario {
+              display: flex;
+              gap: 1rem;
+              margin-top: 1.5rem;
+  
+              @media (max-width: 768px) {
+                flex-direction: column;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  ::ng-deep {
+    .reportar-informacao__grupo-formulario .p-inputtext {
+        width: 100%;
+    }
+    .reportar-informacao__mensagem-informativa .p-card {
+        margin-bottom: 1em;
+    }
+    .p-messages {
+      margin-bottom: 1.5rem;
+    }
+  
+    .p-fileupload {
+      .p-button {
+        width: 100%;
+      }
+    }
+  }

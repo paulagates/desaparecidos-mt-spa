@@ -1,0 +1,266 @@
+::ng-deep {
+  .pagina-inicial__card-pesquisa .p-component {
+    margin-bottom: 1em;
+  }
+
+  .pagina-inicial__abas .p-element {
+    width: 100%;
+    .p-selectbutton {
+      width: 100%;
+      display: flex;
+
+      .p-button {
+        flex: 1;
+        width: 100%;
+        display: flex;
+      }
+    }
+  }
+  .pagina-inicial__dropdown {
+    display: flex;
+    width: 100%;
+    .p-dropdown {
+      width: 100%;
+    }
+  }
+}
+
+.pagina-inicial {
+  padding: 1.5rem 0;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 5.25rem);
+
+  &__container {
+    max-width: 1700px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  &__abas {
+    width: 100%;
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: #e9ecef;
+
+    .pagina-inicial__botao-abas {
+      flex: 1;
+      border-radius: 0;
+      box-shadow: none;
+      font-weight: 600;
+
+      &:first-child {
+        border-radius: 0.5rem 0 0 0.5rem;
+      }
+
+      &:last-child {
+        border-radius: 0 0.5rem 0.5rem 0;
+      }
+    }
+  }
+
+  &__card-pesquisa {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__titulo-pesquisa {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  &__formulario {
+    .pagina-inicial__linha-formulario {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+  }
+
+  &__grupo-formulario {
+    flex: 1;
+
+    &--idade {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__rotulo {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 0.9rem;
+    }
+  }
+
+  &__entrada {
+    width: 100%;
+  }
+
+  &__entradas-idade {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+      flex: 1;
+    }
+  }
+
+  &__separador-idade {
+    color: #6c757d;
+  }
+
+  &__dropdown {
+    width: 100%;
+  }
+
+  &__acoes-formulario {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  &__botao {
+    padding: 0.625rem 1rem;
+  }
+
+  &__resultados {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__titulo-resultados {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: rgb(68, 68, 68);
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  &__carregando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+  }
+
+  &__spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  &__texto-carregando {
+    margin-top: 1rem;
+    color: #6c757d;
+  }
+
+  &__info-resultados {
+    margin-bottom: 1rem;
+  }
+
+  &__contagem-resultados {
+    color: #6c757d;
+    font-size: 0.875rem;
+  }
+
+  &__sem-resultados {
+    text-align: center;
+    padding: 2rem 0;
+    color: #adb5bd;
+  }
+
+  &__grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__item-grade {
+    height: 100%;
+  }
+
+  &__paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  &__botao-paginacao {
+    margin: 0 0.25rem;
+  }
+
+  &__numeros-pagina {
+    display: flex;
+  }
+
+  &__numero-pagina {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    background-color: white;
+    color: #495057;
+    cursor: pointer;
+    margin: 0 0.125rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+
+    @media (max-width: 576px) {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    &--ativo {
+      background-color: #1e3a8a;
+      color: white;
+      border-color: #1e3a8a;
+    }
+  }
+}

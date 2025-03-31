@@ -1,0 +1,129 @@
+<div class="detalhes-pessoa">
+    <div class="detalhes-pessoa__container">
+        <div class="detalhes-pessoa__navegacao">
+            <p-button icon="pi pi-arrow-left" label="Voltar" (onClick)="voltar()"
+                styleClass="p-button-text p-button-secondary">
+            </p-button>
+        </div>
+
+        <p-progressSpinner *ngIf="carregando" class="detalhes-pessoa__carregando"></p-progressSpinner>
+
+        <p-messages *ngIf="erro" [(value)]="mensagensErro" [enableService]="false"></p-messages>
+
+        <div *ngIf="!carregando && !erro && pessoa" class="detalhes-pessoa__conteudo">
+            <div class="detalhes-pessoa__banner-status" [ngClass]="classeStatus">
+                <h2>{{ status }}</h2>
+                <p *ngIf="status === 'DESAPARECIDO'">
+                    Desde {{ pessoa.ultimaOcorrencia.dtDesaparecimento | date:'dd/MM/yyyy' }}
+                </p>
+                <p *ngIf="status === 'LOCALIZADO'">
+                    Em {{ pessoa.ultimaOcorrencia.dataLocalizacao | date:'dd/MM/yyyy' }}
+                </p>
+            </div>
+
+            <div class="detalhes-pessoa__grade">
+                <div class="detalhes-pessoa__secao-foto">
+                    <div class="detalhes-pessoa__foto">
+                        <p-image [src]="pessoa.urlFoto || 'assets/images/person-placeholder.jpg'" onerror="pessoa.urlFoto='assets/images/person-placeholder.jpg'"[alt]="pessoa.nome"
+                            width="100%">
+                        </p-image>
+                    </div>
+
+                    <div class="detalhes-pessoa__acoes">
+                        <p-button icon="pi pi-info-circle" label="Reportar Informação" (onClick)="reportarInformacao()"
+                            styleClass="p-button-primary">
+                        </p-button>
+
+                        <div *ngIf="pessoa.ultimaOcorrencia!.listaCartaz!.length > 0" class="detalhes-pessoa__cartazes">
+                            <h3>Cartazes</h3>
+                            <p-listbox [options]="pessoa.ultimaOcorrencia.listaCartaz" optionLabel="tipoCartaz"
+                                [style]="{'width':'100%'}" [listStyle]="{'max-height':'250px'}">
+                                <ng-template let-cartaz pTemplate="item">
+                                    <a [href]="cartaz.urlCartaz" target="_blank" class="detalhes-pessoa__item-cartaz">
+                                        <i class="pi"
+                                            [ngClass]="{'pi-file-pdf': cartaz.tipoCartaz.startsWith('PDF'), 'pi-image': cartaz.tipoCartaz.startsWith('JPG') || cartaz.tipoCartaz.startsWith('INSTA')}"></i>
+                                        <span>
+                                            {{ obterDescricaoCartaz(cartaz.tipoCartaz) }}
+                                        </span>
+                                    </a>
+                                </ng-template>
+                            </p-listbox>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detalhes-pessoa__secao-info">
+                    <h1 class="detalhes-pessoa__nome">{{ pessoa.nome }}</h1>
+
+                    <div class="detalhes-pessoa__info-basica">
+                        <div class="detalhes-pessoa__item-info">
+                            <span class="detalhes-pessoa__rotulo">Idade:</span>
+                            <span class="detalhes-pessoa__valor">{{ pessoa.idade }} anos</span>
+                        </div>
+                        <div class="detalhes-pessoa__item-info">
+                            <span class="detalhes-pessoa__rotulo">Sexo:</span>
+                            <span class="detalhes-pessoa__valor">{{ pessoa.sexo === 'MASCULINO' ? 'Masculino' :
+                                'Feminino' }}</span>
+                        </div>
+                    </div>
+
+                    <p-card header="Detalhes da Ocorrência" class="detalhes-pessoa__card-ocorrencia">
+                        <div class="detalhes-pessoa__grade-info">
+                            <div class="detalhes-pessoa__item-info"
+                                *ngIf="pessoa.ultimaOcorrencia.localDesaparecimentoConcat">
+                                <span class="detalhes-pessoa__rotulo">Local do Desaparecimento:</span>
+                                <span class="detalhes-pessoa__valor">{{
+                                    pessoa.ultimaOcorrencia.localDesaparecimentoConcat }}</span>
+                            </div>
+
+                            <div class="detalhes-pessoa__item-info"
+                                *ngIf="pessoa.ultimaOcorrencia.encontradoVivo !== undefined">
+                                <span class="detalhes-pessoa__rotulo">Encontrado Vivo:</span>
+                                <span class="detalhes-pessoa__valor">{{ pessoa.ultimaOcorrencia.encontradoVivo ? 'Sim' :
+                                    'Não' }}</span>
+                            </div>
+
+                            <div class="detalhes-pessoa__item-info"
+                                *ngIf="pessoa.ultimaOcorrencia.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido">
+                                <span class="detalhes-pessoa__rotulo">Vestimentas:</span>
+                                <span class="detalhes-pessoa__valor">{{
+                                    pessoa.ultimaOcorrencia.ocorrenciaEntrevDesapDTO.vestimentasDesaparecido }}</span>
+                            </div>
+
+                            <div class="detalhes-pessoa__item-info"
+                                *ngIf="pessoa.ultimaOcorrencia.ocorrenciaEntrevDesapDTO?.informacao">
+                                <span class="detalhes-pessoa__rotulo">Informações Adicionais:</span>
+                                <span class="detalhes-pessoa__valor">{{
+                                    pessoa.ultimaOcorrencia.ocorrenciaEntrevDesapDTO.informacao }}</span>
+                            </div>
+                        </div>
+                    </p-card>
+
+                    <p-card *ngIf="informacoesOcorrencia!.length > 0" header="Informações Adicionais Reportadas"
+                        class="detalhes-pessoa__card-adicionais">
+                        <p-timeline [value]="informacoesOcorrencia" align="alternate">
+                            <ng-template pTemplate="content" let-info>
+                                <p-card>
+                                    <p>{{ info.informacao }}</p>
+                                    <p-galleria *ngIf="info.anexos?.length > 0" [value]="info.anexos"
+                                        [responsiveOptions]="responsiveOptions"
+                                        [containerStyle]="{'max-width': '500px'}" [numVisible]="3">
+                                        <ng-template pTemplate="item" let-item>
+                                            <img [src]="item" style="width: 100%;" />
+                                        </ng-template>
+                                        <ng-template pTemplate="thumbnail" let-item>
+                                            <img [src]="item" style="width: 50px;" />
+                                        </ng-template>
+                                    </p-galleria>
+                                </p-card>
+                            </ng-template>
+                            <ng-template pTemplate="opposite" let-info>
+                                {{ info.data | date:'dd/MM/yyyy' }}
+                            </ng-template>
+                        </p-timeline>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,236 @@
+.detalhes-pessoa {
+    padding: 1.5rem 0;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 5.25rem);
+  
+    &__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+  
+    &__navegacao {
+      margin-bottom: 1.5rem;
+    }
+  
+    &__carregando {
+      display: flex;
+      justify-content: center;
+      padding: 3rem 0;
+    }
+  
+    &__conteudo {
+      .detalhes-pessoa__banner-status {
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+  
+        &--desaparecido {
+          background-color: #f44336;
+        }
+  
+        &--localizado {
+          background-color: #4caf50;
+        }
+  
+        h2 {
+          margin: 0;
+          font-size: 1.5rem;
+          font-weight: 700;
+        }
+  
+        p {
+          margin: 0.5rem 0 0;
+          font-size: 1rem;
+          opacity: 0.9;
+        }
+      }
+    }
+  
+    &__grade {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1.5rem;
+  
+      @media (max-width: 992px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  
+    &__secao-foto {
+      .detalhes-pessoa__foto {
+        background-color: white;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+  
+        ::ng-deep .p-image {
+          display: block;
+          width: 100%;
+          
+          img {
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+        }
+      }
+  
+      .detalhes-pessoa__acoes {
+        .p-button {
+          width: 100%;
+          margin-bottom: 1rem;
+        }
+  
+        .detalhes-pessoa__cartazes {
+          background-color: white;
+          border-radius: 0.5rem;
+          padding: 1rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+          h3 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            color: #333;
+          }
+  
+          .detalhes-pessoa__item-cartaz {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1e3a8a;
+            gap: 0.5rem;
+            padding: 0.5rem;
+  
+            i {
+              font-size: 1.25rem;
+            }
+          }
+        }
+      }
+    }
+  
+    &__secao-info {
+      .detalhes-pessoa__nome {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: #333;
+      }
+  
+      .detalhes-pessoa__info-basica {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+  
+        .detalhes-pessoa__item-info {
+          .detalhes-pessoa__rotulo {
+            font-weight: 600;
+            color: #555;
+            margin-right: 0.25rem;
+          }
+  
+          .detalhes-pessoa__valor {
+            color: #333;
+          }
+        }
+      }
+  
+      .detalhes-pessoa__card-ocorrencia,
+      .detalhes-pessoa__card-adicionais {
+        margin-bottom: 1.5rem;
+  
+        ::ng-deep .p-card {
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+          .p-card-title {
+            font-size: 1.25rem;
+            color: #333;
+          }
+  
+          .p-card-body {
+            padding: 1.5rem;
+          }
+  
+          .p-card-content {
+            padding: 0;
+          }
+        }
+      }
+  
+      .detalhes-pessoa__grade-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+  
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
+  
+        .detalhes-pessoa__item-info {
+          .detalhes-pessoa__rotulo {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0.25rem;
+          }
+  
+          .detalhes-pessoa__valor {
+            color: #333;
+          }
+        }
+      }
+  
+      ::ng-deep .p-timeline {
+        .p-timeline-event-opposite {
+          padding: 0 1rem;
+          font-weight: 600;
+        }
+  
+        .p-card {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+  
+  /* Responsividade */
+  @media (max-width: 992px) {
+    .detalhes-pessoa {
+      &__secao-foto {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .detalhes-pessoa {
+      &__banner-status {
+        h2 {
+          font-size: 1.25rem;
+        }
+  
+        p {
+          font-size: 0.9rem;
+        }
+      }
+  
+      &__secao-info {
+        .detalhes-pessoa__nome {
+          font-size: 1.25rem;
+        }
+  
+        .detalhes-pessoa__info-basica {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
+    }
+  }

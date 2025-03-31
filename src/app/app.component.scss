@@ -1,0 +1,45 @@
+.container-principal {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.conteudo-principal {
+  flex: 1;
+}
+
+.rodape {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 1.5rem 0;
+  margin-top: auto;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  &__texto {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.5;
+
+    &:first-child {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+  .rodape {
+    padding: 1rem 0;
+
+    &__texto {
+      font-size: 0.8rem;
+    }
+  }
+}

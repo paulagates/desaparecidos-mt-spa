@@ -1,0 +1,28 @@
+<header class="cabecalho">
+    <div class="cabecalho__container">
+      <div class="cabecalho__conteudo">
+        <div class="cabecalho__logo" (click)="irParaHome()">
+          <img src="assets/images/logo-abitus.png" alt="Logo ABITUS" class="cabecalho__imagem-logo">
+          <div class="cabecalho__texto-logo">
+            <h1>ABITUS</h1>
+            <p>Sistema de Pessoas Desaparecidas</p>
+          </div>
+        </div>
+  
+        <div class="cabecalho__estatisticas">
+          <div class="cabecalho__item-estatistica">
+            <span class="cabecalho__rotulo-estatistica">Desaparecidos</span>
+            <span class="cabecalho__valor-estatistica cabecalho__valor-estatistica--desaparecidos">
+              {{ formatarNumero(estatisticas.quantPessoasDesaparecidas) }}
+            </span>
+          </div>
+          <div class="cabecalho__item-estatistica">
+            <span class="cabecalho__rotulo-estatistica">Localizados</span>
+            <span class="cabecalho__valor-estatistica cabecalho__valor-estatistica--localizados">
+              {{ formatarNumero(estatisticas.quantPessoasEncontradas) }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
