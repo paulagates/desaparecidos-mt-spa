@@ -8,8 +8,9 @@
 **Tipo de Projeto:** Single Page Application (SPA)
 
 ## 🧑‍💻 Informações do Candidato
-**Inscrição**  8884
-**Nome** Paula Caroline Nunes da Silva
+**Inscrição:**  8884
+
+**Nome:** Paula Caroline Nunes da Silva
 
 ## 🛠 Stack Tecnológica
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -28,7 +29,6 @@
 
 ### Instalação
 ```bash
-# Clonar repositório
 git clone https://github.com/paulagates/projeto-desaparecidos.git
 
 ```
