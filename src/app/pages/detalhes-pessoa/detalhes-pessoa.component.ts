@@ -99,7 +99,11 @@ export class DetalhesPessoaComponent {
   carregarInformacoesOcorrencia(idOcorrencia: number): void {
     this.ocorrenciaService.getInformacoesOcorrencia(idOcorrencia).subscribe({
       next: (dados: OcorrenciaInformacao[]) => {
-        this.informacoesOcorrencia = dados;
+        this.informacoesOcorrencia = dados.sort((a, b) => {
+          const dateA = new Date(a.data).getTime();
+          const dateB = new Date(b.data).getTime();
+          return dateB - dateA;
+        });
         this.carregando = false;
       },
       error: (erro: any) => {

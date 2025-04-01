@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { OcorrenciaService } from '../../core/services/ocorrencia.service';
 import { PessoasService } from '../../core/services/pessoas.service';
-import { OcorrenciaInfoRequest } from '../../core/models/ocorrencia';
 import { ButtonModule } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { CalendarModule } from 'primeng/calendar';
@@ -65,7 +64,7 @@ export class ReportarInformacoesComponent {
   ) {
     this.formularioReporte = this.fb.group({
       informacao: ['', [Validators.required, Validators.minLength(10)]],
-      descricao: ['', [Validators.required]],
+      descricao: [''],
       data: [new Date(), [Validators.required]],
     });
   }
@@ -109,13 +108,13 @@ export class ReportarInformacoesComponent {
     });
   }
 
-  arquivosSelecionados(event: any): void {
-    const novosArquivos = event.files;
 
-    if (
-      this._arquivosSelecionados.length + novosArquivos.length >
-      this.maxArquivos
-    ) {
+  arquivosSelecionados(event: any): void {
+    const novosArquivos = Array.isArray(event.files) ? event.files : [...event.files];
+  
+    console.log(this._arquivosSelecionados.length);
+  
+    if (this._arquivosSelecionados.length + novosArquivos.length > this.maxArquivos) {
       this.messageService.add({
         severity: 'warn',
         summary: 'Atenção',
@@ -123,10 +122,11 @@ export class ReportarInformacoesComponent {
       });
       return;
     }
-
+  
     const arquivosGrandes = novosArquivos.filter(
       (file: any) => file.size > this.maxTamanhoArquivo
     );
+  
     if (arquivosGrandes.length > 0) {
       this.messageService.add({
         severity: 'warn',
@@ -137,11 +137,8 @@ export class ReportarInformacoesComponent {
       });
       return;
     }
-
-    this._arquivosSelecionados = [
-      ...this._arquivosSelecionados,
-      ...novosArquivos,
-    ];
+  
+    this._arquivosSelecionados = [...this._arquivosSelecionados, ...novosArquivos];
   }
 
   removerArquivo(arquivo: any): void {
@@ -157,21 +154,23 @@ export class ReportarInformacoesComponent {
       });
       return;
     }
-
+  
     this.enviando = true;
+  
+    const formData = new FormData();
+    formData.append('informacao', this.formularioReporte.value.informacao);
+    formData.append('descricao', this.formularioReporte.value.descricao || '');
+    formData.append('data', this.datePipe.transform(this.formularioReporte.value.data, 'yyyy-MM-dd') || '');
+    formData.append('ocoId', this.idOcorrencia.toString());
+  
 
-    const requisicao: OcorrenciaInfoRequest = {
-      ...this.formularioReporte.value,
-      data:
-        this.datePipe.transform(
-          this.formularioReporte.value.data,
-          'yyyy-MM-dd'
-        ) || '',
-      ocoId: this.idOcorrencia,
-      arquivos: this._arquivosSelecionados,
-    };
-
-    this.ocorrenciaService.adicionarInformacaoOcorrencia(requisicao).subscribe({
+    this._arquivosSelecionados.forEach((arquivo: File) => {
+      formData.append('files', arquivo, arquivo.name);
+    });
+  
+    console.log('Enviando:', formData); // Para debug
+  
+    this.ocorrenciaService.adicionarInformacaoOcorrencia(formData).subscribe({
       next: () => {
         this.enviando = false;
         this.sucesso = true;
@@ -187,8 +186,7 @@ export class ReportarInformacoesComponent {
       },
       error: (error) => {
         console.error('Erro ao enviar informações:', error);
-        this.erro =
-          'Não foi possível enviar as informações. Tente novamente mais tarde.';
+        this.erro = 'Não foi possível enviar as informações. Tente novamente mais tarde.';
         this.mensagensErro = [
           { severity: 'error', summary: 'Erro', detail: this.erro },
         ];

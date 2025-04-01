@@ -78,20 +78,16 @@
                         </div>
 
                         <div class="reportar-informacao__grupo-formulario">
-                            <label for="descricao">Descrição das Fotos (se houver)</label>
+                            <label for="descricao">Descrição das Fotos (Opcional)</label>
                             <input type="text" id="descricao" formControlName="descricao" pInputText
                                 placeholder="Ex: Foto da pessoa vista na Praça Central">
-                            <small
-                                *ngIf="formularioReporte.get('descricao')?.invalid && formularioReporte.get('descricao')?.touched"
-                                class="p-error">
-                                Descrição é obrigatória se há fotos
-                            </small>
                         </div>
 
                         <div class="reportar-informacao__grupo-formulario">
                             <label>Fotos</label>
                             <p-fileUpload chooseLabel="Escolher Arquivos" name="files" [multiple]="true"
-                                [maxFileSize]="5242880" [accept]="'image/*'" [customUpload]="true"
+                                [maxFileSize]="5242880" [accept]="'image/*'" fileLimit="5"  [invalidFileLimitMessageDetail]="'O máximo permitido é ' + maxArquivos + ' arquivos!'"
+                                invalidFileLimitMessageSummary="Limite excedido!" [customUpload]="true"
                                 (onSelect)="arquivosSelecionados($event)" [showUploadButton]="false"
                                 [showCancelButton]="false" [disabled]="_arquivosSelecionados.length >= maxArquivos">
                                 <ng-template pTemplate="content">
@@ -99,23 +95,6 @@
                                 </ng-template>
                             </p-fileUpload>
 
-                            <p-listbox *ngIf="_arquivosSelecionados.length > 0" [options]="_arquivosSelecionados"
-                                [listStyle]="{'max-height':'200px'}" [style]="{'width':'100%', 'margin-top':'1rem'}">
-                                <ng-template let-arquivo pTemplate="item">
-                                    <div class="reportar-informacao__item-arquivo">
-                                        <img *ngIf="arquivo.objectURL" [src]="arquivo.objectURL" alt="Preview"
-                                            class="reportar-informacao__preview-arquivo">
-                                        <i *ngIf="!arquivo.objectURL" class="pi pi-file"></i>
-                                        <span class="reportar-informacao__nome-arquivo">{{ arquivo.name }}</span>
-                                        <span class="reportar-informacao__tamanho-arquivo">{{ (arquivo.size /
-                                            1024).toFixed(1) }} KB</span>
-                                        <button type="button" pButton icon="pi pi-times"
-                                            class="p-button-rounded p-button-text p-button-danger"
-                                            (click)="removerArquivo(arquivo)">
-                                        </button>
-                                    </div>
-                                </ng-template>
-                            </p-listbox>
                         </div>
 
                         <div class="reportar-informacao__acoes-formulario">

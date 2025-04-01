@@ -19,15 +19,6 @@ export interface Ocorrencia {
     vestimentasDesaparecido: string;
   }
   
-  export interface OcorrenciaInfoRequest {
-    informacao: string;
-    descricao: string;
-    data: string; 
-    ocoId: number;
-    files?: File[];
-  }
-
-  
   export interface OcorrenciaInformacao {
     ocoId: number;
     informacao: string;
