@@ -1,27 +1,62 @@
-# DesaparecidosMtSpa
+# Aplicação de Pessoas Desaparecidas
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.11.
+## 📌 Informações do Projeto
 
-## Development server
+**Tecnologia Principal:** Angular 17  
+**UI Framework:** PrimeNG  
+**API Utilizada:** [Polícia Judiciária Civil de MT](https://abitus-api.geia.vip/swagger-ui/index.html)  
+**Tipo de Projeto:** Single Page Application (SPA)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🧑‍💻 Informações do Candidato
+| **Inscrição** | 8884|
+| **Nome** | Paula Caroline Nunes da Silva|
 
-## Code scaffolding
+## 🛠 Stack Tecnológica
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+  <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular">
+  <img src="https://img.shields.io/badge/PrimeNG-FFA500?style=for-the-badge&logo=primeng&logoColor=white" alt="PrimeNG">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+</div>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## ✨ Funcionalidades Principais
 
-## Build
+### 🏠 Página Inicial
+- [x] Listagem paginada (10 itens/página)
+- [x] Filtros de pesquisa
+- [x] Cards responsivos com informações básicas
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 👤 Página de Detalhes
+- [x] Visualização completa dos dados
+- [x] Destaque visual para status
+- [x] Timeline de informações
+- [x] Botão para reportar informações
 
-## Running unit tests
+### 📝 Formulário de Informações
+- [x] Campos com validação
+- [x] Máscaras para dados específicos
+- [x] Upload de imagens
+- [x] Seleção de localização
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🚀 Como Executar
 
-## Running end-to-end tests
+### Instalação
+```bash
+# Clonar repositório
+git clone https://github.com/paulagates/projeto-desaparecidos.git
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Acessar diretório
+cd projeto-desaparecidos
 
-## Further help
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Docker 🐳
+
+```bash
+cd docker
+
+docker compose up -d
+```
+
+## Acesso
+
+Acesse pelo localhost:80

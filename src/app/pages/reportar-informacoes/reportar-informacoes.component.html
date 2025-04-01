@@ -1,113 +1,123 @@
 <div class="reportar-informacao">
-    <div class="reportar-informacao__container">
-        <div class="reportar-informacao__navegacao">
-            <p-button icon="pi pi-arrow-left" label="Voltar" (onClick)="voltar()"
-                styleClass="p-button-text p-button-secondary">
-            </p-button>
-        </div>
-
-        <p-progressSpinner *ngIf="carregando" class="reportar-informacao__carregando"></p-progressSpinner>
-
-        <p-messages *ngIf="erro" [(value)]="mensagensErro" [enableService]="false"></p-messages>
-
-        <div *ngIf="!carregando && !erro" class="reportar-informacao__conteudo">
-            <div class="reportar-informacao__cabecalho">
-                <h1>Reportar Informação</h1>
-                <p *ngIf="pessoa">
-                    Ajude a localizar <strong>{{ pessoa!.nome }}</strong> compartilhando informações relevantes
-                </p>
-            </div>
-
-            <p-card *ngIf="sucesso" class="reportar-informacao__mensagem-sucesso">
-                <div class="reportar-informacao__icone-sucesso">
-                    <i class="pi pi-check-circle"></i>
-                </div>
-                <h2>Informação enviada com sucesso!</h2>
-                <p>Obrigado por contribuir com a localização de pessoas desaparecidas.</p>
-                <div class="reportar-informacao__acoes-sucesso">
-                    <p-button label="Voltar para os detalhes" (onClick)="voltar()" styleClass="p-button-primary">
-                    </p-button>
-                    <p-button label="Enviar outra informação" (onClick)="sucesso = false"
-                        styleClass="p-button-secondary">
-                    </p-button>
-                </div>
-            </p-card>
-
-            <div *ngIf="!sucesso" class="reportar-informacao__formulario-container">
-                <p-card class="reportar-informacao__mensagem-informativa">
-                    <div class="reportar-informacao__conteudo-mensagem">
-                        <i class="pi pi-info-circle"></i>
-                        <p>
-                            As informações compartilhadas são muito importantes para ajudar na localização de pessoas
-                            desaparecidas.
-                            Por favor, forneça detalhes precisos sobre quando e onde você avistou a pessoa.
-                        </p>
-                    </div>
-                </p-card>
-
-                <p-card class="reportar-informacao__card-formulario">
-                    <form [formGroup]="formularioReporte" (ngSubmit)="enviarReporte()"
-                        class="reportar-informacao__formulario">
-                        <div class="reportar-informacao__grupo-formulario">
-                            <label for="data">Data do Avistamento *</label>
-                            <p-calendar id="data" formControlName="data" [maxDate]="hoje" dateFormat="dd/mm/yy"
-                                [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
-                            </p-calendar>
-                            <small
-                                *ngIf="formularioReporte.get('data')?.invalid && formularioReporte.get('data')?.touched"
-                                class="p-error">
-                                Data é obrigatória
-                            </small>
-                        </div>
-
-                        <div class="reportar-informacao__grupo-formulario">
-                            <label for="informacao">Informação sobre o Avistamento *</label>
-                            <textarea id="informacao" formControlName="informacao" rows="5" cols="86%" pInputTextarea
-                                placeholder="Descreva onde você viu a pessoa, o que ela estava fazendo, com quem estava, etc.">
-                </textarea>
-                            <small
-                                *ngIf="formularioReporte.get('informacao')?.invalid && formularioReporte.get('informacao')?.touched"
-                                class="p-error">
-                                <span *ngIf="formularioReporte.get('informacao')?.errors?.['required']">
-                                    Informação é obrigatória
-                                </span>
-                                <span *ngIf="formularioReporte.get('informacao')?.errors?.['minlength']">
-                                    Informação deve ter pelo menos 10 caracteres
-                                </span>
-                            </small>
-                        </div>
-
-                        <div class="reportar-informacao__grupo-formulario">
-                            <label for="descricao">Descrição das Fotos (Opcional)</label>
-                            <input type="text" id="descricao" formControlName="descricao" pInputText
-                                placeholder="Ex: Foto da pessoa vista na Praça Central">
-                        </div>
-
-                        <div class="reportar-informacao__grupo-formulario">
-                            <label>Fotos</label>
-                            <p-fileUpload chooseLabel="Escolher Arquivos" name="files" [multiple]="true"
-                                [maxFileSize]="5242880" [accept]="'image/*'" fileLimit="5"  [invalidFileLimitMessageDetail]="'O máximo permitido é ' + maxArquivos + ' arquivos!'"
-                                invalidFileLimitMessageSummary="Limite excedido!" [customUpload]="true"
-                                (onSelect)="arquivosSelecionados($event)" [showUploadButton]="false"
-                                [showCancelButton]="false" [disabled]="_arquivosSelecionados.length >= maxArquivos">
-                                <ng-template pTemplate="content">
-                                    <small>Máximo {{ maxArquivos }} arquivos, 5MB cada</small>
-                                </ng-template>
-                            </p-fileUpload>
-
-                        </div>
-
-                        <div class="reportar-informacao__acoes-formulario">
-                            <p-button type="submit" label="Enviar Informação" [disabled]="enviando"
-                                [loading]="enviando">
-                            </p-button>
-                            <p-button type="button" label="Cancelar" (onClick)="voltar()"
-                                styleClass="p-button-secondary">
-                            </p-button>
-                        </div>
-                    </form>
-                </p-card>
-            </div>
-        </div>
+  <div class="reportar-informacao__container">
+    <div class="reportar-informacao__navegacao">
+      <p-button icon="pi pi-arrow-left" label="Voltar" (onClick)="voltar()"
+        styleClass="p-button-text p-button-secondary">
+      </p-button>
     </div>
-</div>
+
+    @if (carregando) {
+      <p-progressSpinner class="reportar-informacao__carregando"></p-progressSpinner>
+    }
+
+    @if (erro) {
+      <p-messages [(value)]="mensagensErro" [enableService]="false"></p-messages>
+    }
+
+    @if (!carregando && !erro) {
+      <div class="reportar-informacao__conteudo">
+        <div class="reportar-informacao__cabecalho">
+          <h1>Reportar Informação</h1>
+          @if (pessoa) {
+            <p>
+              Ajude a localizar <strong>{{ pessoa!.nome }}</strong> compartilhando informações relevantes
+            </p>
+          }
+        </div>
+        @if (sucesso) {
+          <p-card class="reportar-informacao__mensagem-sucesso">
+            <div class="reportar-informacao__icone-sucesso">
+              <i class="pi pi-check-circle"></i>
+            </div>
+            <h2>Informação enviada com sucesso!</h2>
+            <p>Obrigado por contribuir com a localização de pessoas desaparecidas.</p>
+            <div class="reportar-informacao__acoes-sucesso">
+              <p-button label="Voltar para os detalhes" (onClick)="voltar()" styleClass="p-button-primary">
+              </p-button>
+              <p-button label="Enviar outra informação" (onClick)="sucesso = false"
+                styleClass="p-button-secondary">
+              </p-button>
+            </div>
+          </p-card>
+        }
+        @if (!sucesso) {
+          <div class="reportar-informacao__formulario-container">
+            <p-card class="reportar-informacao__mensagem-informativa">
+              <div class="reportar-informacao__conteudo-mensagem">
+                <i class="pi pi-info-circle"></i>
+                <p>
+                  As informações compartilhadas são muito importantes para ajudar na localização de pessoas
+                  desaparecidas.
+                  Por favor, forneça detalhes precisos sobre quando e onde você avistou a pessoa.
+                </p>
+              </div>
+            </p-card>
+            <p-card class="reportar-informacao__card-formulario">
+              <form [formGroup]="formularioReporte" (ngSubmit)="enviarReporte()"
+                class="reportar-informacao__formulario">
+                <div class="reportar-informacao__grupo-formulario">
+                  <label for="data">Data do Avistamento *</label>
+                  <p-calendar id="data" formControlName="data" [maxDate]="hoje" dateFormat="dd/mm/yy"
+                    [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                  </p-calendar>
+                  @if (formularioReporte.get('data')?.invalid && formularioReporte.get('data')?.touched) {
+                    <small
+                      class="p-error">
+                      Data é obrigatória
+                    </small>
+                  }
+                </div>
+                <div class="reportar-informacao__grupo-formulario">
+                  <label for="informacao">Informação sobre o Avistamento *</label>
+                  <textarea id="informacao" formControlName="informacao" rows="5" cols="86%" pInputTextarea
+                    placeholder="Descreva onde você viu a pessoa, o que ela estava fazendo, com quem estava, etc.">
+                  </textarea>
+                  @if (formularioReporte.get('informacao')?.invalid && formularioReporte.get('informacao')?.touched) {
+                    <small
+                      class="p-error">
+                      @if (formularioReporte.get('informacao')?.errors?.['required']) {
+                        <span>
+                          Informação é obrigatória
+                        </span>
+                      }
+                      @if (formularioReporte.get('informacao')?.errors?.['minlength']) {
+                        <span>
+                          Informação deve ter pelo menos 10 caracteres
+                        </span>
+                      }
+                    </small>
+                  }
+                </div>
+                <div class="reportar-informacao__grupo-formulario">
+                  <label for="descricao">Descrição das Fotos (Opcional)</label>
+                  <input type="text" id="descricao" formControlName="descricao" pInputText
+                    placeholder="Ex: Foto da pessoa vista na Praça Central">
+                  </div>
+                  <div class="reportar-informacao__grupo-formulario">
+                    <label>Fotos</label>
+                    <p-fileUpload chooseLabel="Escolher Arquivos" name="files" [multiple]="true"
+                      [maxFileSize]="5242880" [accept]="'image/*'" fileLimit="5"  [invalidFileLimitMessageDetail]="'O máximo permitido é ' + maxArquivos + ' arquivos!'"
+                      invalidFileLimitMessageSummary="Limite excedido!" [customUpload]="true"
+                      (onSelect)="arquivosSelecionados($event)" [showUploadButton]="false"
+                      [showCancelButton]="false" [disabled]="_arquivosSelecionados.length >= maxArquivos">
+                      <ng-template pTemplate="content">
+                        <small>Máximo {{ maxArquivos }} arquivos, 5MB cada</small>
+                      </ng-template>
+                    </p-fileUpload>
+                  </div>
+                  <div class="reportar-informacao__acoes-formulario">
+                    <p-button type="submit" label="Enviar Informação" [disabled]="enviando"
+                      [loading]="enviando">
+                    </p-button>
+                    <p-button type="button" label="Cancelar" (onClick)="voltar()"
+                      styleClass="p-button-secondary">
+                    </p-button>
+                  </div>
+                </form>
+              </p-card>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>

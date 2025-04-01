@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ReportarInformacoesRoutingModule } from './reportar-informacoes-routing.module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Pessoa } from '../../core/models/pessoa';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { OcorrenciaService } from '../../core/services/ocorrencia.service';
@@ -21,7 +21,6 @@ import { InputTextModule } from 'primeng/inputtext';
   selector: 'app-informacoes',
   standalone: true,
   imports: [
-    CommonModule,
     ReportarInformacoesRoutingModule,
     ButtonModule,
     ListboxModule,
@@ -33,7 +32,7 @@ import { InputTextModule } from 'primeng/inputtext';
     ReactiveFormsModule,
     InputTextareaModule,
     InputTextModule
-  ],
+],
   templateUrl: './reportar-informacoes.component.html',
   styleUrl: './reportar-informacoes.component.scss',
   providers: [MessageService, DatePipe],

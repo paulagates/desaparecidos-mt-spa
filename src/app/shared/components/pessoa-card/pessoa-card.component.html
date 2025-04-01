@@ -1,21 +1,21 @@
 
 <div class="cartao-pessoa" (click)="verDetalhes()">
-  <p-tag 
-    [severity]="pessoa.ultimaOcorrencia.dataLocalizacao ? 'success' : 'danger'" 
+  <p-tag
+    [severity]="pessoa.ultimaOcorrencia.dataLocalizacao ? 'success' : 'danger'"
     [value]="rotuloStatus"
     class="cartao-pessoa__etiqueta-status">
   </p-tag>
-  
+
   <div class="cartao-pessoa__foto">
-    <p-image 
-      [src]="urlFoto" 
-      [alt]="pessoa.nome" 
-      width="100%" 
+    <p-image
+      [src]="urlFoto"
+      [alt]="pessoa.nome"
+      width="100%"
       height="300px"
       imageClass="cartao-pessoa__imagem">
     </p-image>
   </div>
-  
+
   <div class="cartao-pessoa__informacoes">
     <h3 class="cartao-pessoa__nome">{{ pessoa.nome }}</h3>
     <div class="cartao-pessoa__detalhes">
@@ -27,16 +27,22 @@
       </p>
       <p class="cartao-pessoa__detalhe">
         <i class="pi" [ngClass]="pessoa.ultimaOcorrencia.dataLocalizacao ? 'pi-check-circle' : 'pi-question-circle'"></i>
-        <span *ngIf="!pessoa.ultimaOcorrencia.dataLocalizacao">
-          Desaparecido desde: {{ pessoa.ultimaOcorrencia.dtDesaparecimento | date:'dd/MM/yyyy' }}
-        </span>
-        <span *ngIf="pessoa.ultimaOcorrencia.dataLocalizacao">
-          Localizado em: {{ pessoa.ultimaOcorrencia.dataLocalizacao | date:'dd/MM/yyyy' }}
-        </span>
+        @if (!pessoa.ultimaOcorrencia.dataLocalizacao) {
+          <span>
+            Desaparecido desde: {{ pessoa.ultimaOcorrencia.dtDesaparecimento | date:'dd/MM/yyyy' }}
+          </span>
+        }
+        @if (pessoa.ultimaOcorrencia.dataLocalizacao) {
+          <span>
+            Localizado em: {{ pessoa.ultimaOcorrencia.dataLocalizacao | date:'dd/MM/yyyy' }}
+          </span>
+        }
       </p>
-      <p class="cartao-pessoa__detalhe" *ngIf="pessoa.ultimaOcorrencia.localDesaparecimentoConcat">
-        <i class="pi pi-map-marker"></i> Local: {{ pessoa.ultimaOcorrencia.localDesaparecimentoConcat }}
-      </p>
+      @if (pessoa.ultimaOcorrencia.localDesaparecimentoConcat) {
+        <p class="cartao-pessoa__detalhe">
+          <i class="pi pi-map-marker"></i> Local: {{ pessoa.ultimaOcorrencia.localDesaparecimentoConcat }}
+        </p>
+      }
     </div>
   </div>
 </div>

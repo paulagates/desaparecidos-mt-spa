@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { PessoasService } from '../../../core/services/pessoas.service';
 import { Router } from '@angular/router';
 import { Estatistica } from '../../../core/models/estatistica';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

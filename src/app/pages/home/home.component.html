@@ -1,8 +1,8 @@
 <div class="pagina-inicial">
   <div class="pagina-inicial__container">
     <div class="pagina-inicial__abas">
-      <p-selectButton [options]="opcoesStatus" [(ngModel)]="statusAtual" 
-                     (onChange)="onStatusChange()" optionLabel="label" optionValue="value"  styleClass="full-width-select-button">
+      <p-selectButton [options]="opcoesStatus" [(ngModel)]="statusAtual"
+        (onChange)="onStatusChange()" optionLabel="label" optionValue="value"  styleClass="full-width-select-button">
       </p-selectButton>
     </div>
 
@@ -11,7 +11,7 @@
         <i class="pi pi-search"></i>
         Pesquisar {{ statusAtual === 'DESAPARECIDO' ? 'Desaparecidos' : 'Localizados' }}
       </h2>
-      
+
       <p-divider></p-divider>
 
       <form [formGroup]="formularioPesquisa" (ngSubmit)="aplicarFiltros()" class="pagina-inicial__formulario">
@@ -20,8 +20,8 @@
             <label for="nome" class="pagina-inicial__rotulo">
               <i class="pi pi-user"></i> Nome
             </label>
-            <input pInputText type="text" id="nome" formControlName="nome" 
-                   placeholder="Digite o nome" class="pagina-inicial__entrada">
+            <input pInputText type="text" id="nome" formControlName="nome"
+              placeholder="Digite o nome" class="pagina-inicial__entrada">
           </div>
 
           <div class="pagina-inicial__grupo-formulario pagina-inicial__grupo-formulario--idade">
@@ -29,11 +29,11 @@
               <i class="pi pi-calendar"></i> Faixa Etária
             </label>
             <div class="pagina-inicial__entradas-idade">
-              <input pInputText type="number" formControlName="faixaIdadeInicial" 
-                     placeholder="De" min="0" class="pagina-inicial__entrada">
+              <input pInputText type="number" formControlName="faixaIdadeInicial"
+                placeholder="De" min="0" class="pagina-inicial__entrada">
               <span class="pagina-inicial__separador-idade">a</span>
-              <input pInputText type="number" formControlName="faixaIdadeFinal" 
-                     placeholder="Até" min="0" class="pagina-inicial__entrada">
+              <input pInputText type="number" formControlName="faixaIdadeFinal"
+                placeholder="Até" min="0" class="pagina-inicial__entrada">
             </div>
           </div>
 
@@ -41,11 +41,11 @@
             <label for="sexo" class="pagina-inicial__rotulo">
               <i class="pi pi-venus-mars"></i> Sexo
             </label>
-            <p-dropdown 
-              id="sexo" 
-              formControlName="sexo" 
-              [options]="opcoesSexo" 
-              optionLabel="rotulo" 
+            <p-dropdown
+              id="sexo"
+              formControlName="sexo"
+              [options]="opcoesSexo"
+              optionLabel="rotulo"
               optionValue="valor"
               placeholder="Todos"
               class="pagina-inicial__dropdown">
@@ -54,10 +54,10 @@
         </div>
 
         <div class="pagina-inicial__acoes-formulario">
-          <button pButton type="submit" label="Pesquisar" icon="pi pi-search" 
-                  class="p-button-primary pagina-inicial__botao"></button>
-          <button pButton type="button" label="Limpar" icon="pi pi-trash" (click)="limparFiltros()" 
-                  class="p-button-secondary pagina-inicial__botao"></button>
+          <button pButton type="submit" label="Pesquisar" icon="pi pi-search"
+          class="p-button-primary pagina-inicial__botao"></button>
+          <button pButton type="button" label="Limpar" icon="pi pi-trash" (click)="limparFiltros()"
+          class="p-button-secondary pagina-inicial__botao"></button>
         </div>
       </form>
     </p-card>
@@ -68,37 +68,51 @@
         {{ statusAtual === 'DESAPARECIDO' ? 'Pessoas Desaparecidas' : 'Pessoas Localizadas' }}
       </h2>
 
-      <div *ngIf="carregando" class="pagina-inicial__carregando">
-        <p-progressSpinner styleClass="pagina-inicial__spinner"></p-progressSpinner>
-        <p class="pagina-inicial__texto-carregando">Carregando...</p>
-      </div>
-
-      <div *ngIf="!carregando" class="pagina-inicial__info-resultados">
-        <p *ngIf="pagina && pagina.totalElements > 0" class="pagina-inicial__contagem-resultados">
-          Exibindo {{ (paginaAtual * itensPorPagina) + 1 }} a {{ calcularMinimo() }}
-          de {{ pagina.totalElements }} resultados
-        </p>
-        <p *ngIf="pagina && pagina.totalElements === 0" class="pagina-inicial__sem-resultados">
-          Nenhum resultado encontrado.
-        </p>
-      </div>
-
-      <div *ngIf="!carregando && pessoas.length > 0" class="pagina-inicial__grade">
-        <div *ngFor="let pessoa of pessoas" class="pagina-inicial__item-grade">
-          <app-pessoa-card [pessoa]="pessoa"></app-pessoa-card>
+      @if (carregando) {
+        <div class="pagina-inicial__carregando">
+          <p-progressSpinner styleClass="pagina-inicial__spinner"></p-progressSpinner>
+          <p class="pagina-inicial__texto-carregando">Carregando...</p>
         </div>
-      </div>
+      }
 
-      <div *ngIf="pagina && pagina.totalPages > 1" class="pagina-inicial__paginacao">
-        <p-paginator 
-          [rows]="itensPorPagina"
-          [totalRecords]="pagina.totalElements"
-          [first]="primeiroItemPagina"
-          (onPageChange)="mudarPagina($event)"
-          [rowsPerPageOptions]="[10, 20, 30]"
-          styleClass="pagina-inicial__paginator">
-        </p-paginator>
-      </div>
+      @if (!carregando) {
+        <div class="pagina-inicial__info-resultados">
+          @if (pagina && pagina.totalElements > 0) {
+            <p class="pagina-inicial__contagem-resultados">
+              Exibindo {{ (paginaAtual * itensPorPagina) + 1 }} a {{ calcularMinimo() }}
+              de {{ pagina.totalElements }} resultados
+            </p>
+          }
+          @if (pagina && pagina.totalElements === 0) {
+            <p class="pagina-inicial__sem-resultados">
+              Nenhum resultado encontrado.
+            </p>
+          }
+        </div>
+      }
+
+      @if (!carregando && pessoas.length > 0) {
+        <div class="pagina-inicial__grade">
+          @for (pessoa of pessoas; track pessoa) {
+            <div class="pagina-inicial__item-grade">
+              <app-pessoa-card [pessoa]="pessoa"></app-pessoa-card>
+            </div>
+          }
+        </div>
+      }
+
+      @if (pagina && pagina.totalPages > 1) {
+        <div class="pagina-inicial__paginacao">
+          <p-paginator
+            [rows]="itensPorPagina"
+            [totalRecords]="pagina.totalElements"
+            [first]="primeiroItemPagina"
+            (onPageChange)="mudarPagina($event)"
+            [rowsPerPageOptions]="[10, 20, 30]"
+            styleClass="pagina-inicial__paginator">
+          </p-paginator>
+        </div>
+      }
     </div>
   </div>
 </div>

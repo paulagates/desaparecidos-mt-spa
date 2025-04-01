@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: /docker/Dockerfile
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    networks:
+      - app-network
+    volumes:
+      - ./logs:/var/log/nginx
+
+networks:
+  app-network:
+    driver: bridge
