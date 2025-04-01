@@ -22,7 +22,7 @@
 
 ### Instalação
 ```bash
-git clone https://github.com/paulagates/projeto-desaparecidos.git
+git clone https://github.com/paulagates/desaparecidos-mt-spa.git
 
 ```
 
