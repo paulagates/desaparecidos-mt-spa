@@ -24,6 +24,8 @@
 ```bash
 git clone https://github.com/paulagates/desaparecidos-mt-spa.git
 
+cd desaparecidos-mt-spa
+
 ```
 
 ### 🐳 Docker 
