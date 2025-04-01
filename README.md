@@ -8,8 +8,8 @@
 **Tipo de Projeto:** Single Page Application (SPA)
 
 ## 🧑‍💻 Informações do Candidato
-| **Inscrição** | 8884|
-| **Nome** | Paula Caroline Nunes da Silva|
+**Inscrição**  8884
+**Nome** Paula Caroline Nunes da Silva
 
 ## 🛠 Stack Tecnológica
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -21,21 +21,8 @@
 ## ✨ Funcionalidades Principais
 
 ### 🏠 Página Inicial
-- [x] Listagem paginada (10 itens/página)
-- [x] Filtros de pesquisa
-- [x] Cards responsivos com informações básicas
-
 ### 👤 Página de Detalhes
-- [x] Visualização completa dos dados
-- [x] Destaque visual para status
-- [x] Timeline de informações
-- [x] Botão para reportar informações
-
 ### 📝 Formulário de Informações
-- [x] Campos com validação
-- [x] Máscaras para dados específicos
-- [x] Upload de imagens
-- [x] Seleção de localização
 
 ## 🚀 Como Executar
 
@@ -43,9 +30,6 @@
 ```bash
 # Clonar repositório
 git clone https://github.com/paulagates/projeto-desaparecidos.git
-
-# Acessar diretório
-cd projeto-desaparecidos
 
 ```
 
@@ -58,5 +42,6 @@ docker compose up -d
 ```
 
 ## Acesso
-
-Acesse pelo localhost:80
+```bash
+localhost:80
+```
